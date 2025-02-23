@@ -1,0 +1,8 @@
+{
+  "name": "Example setup",
+  "tasks": {
+    "directory": "./tasks",
+    "order": ["*"],
+    "configs": {}
+  }
+}
