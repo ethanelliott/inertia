@@ -4,17 +4,18 @@ import { z } from 'zod';
 import { inject } from './inject';
 import { Log } from './logger';
 
-export const InertiaConfigSchema = z.object({
-  name: z.string(),
-  tasks: z
-    .object({
-      directory: z.string(),
-      order: z.array(z.string()),
-      configs: z.record(z.string(), z.any()),
-    })
-    .optional(),
+export const InertiaTaskConfigSchema = z.object({
+  directory: z.string(),
+  order: z.array(z.string()),
+  configs: z.record(z.string(), z.any()),
 });
 
+export const InertiaConfigSchema = z.object({
+  name: z.string(),
+  tasks: InertiaTaskConfigSchema.optional(),
+});
+
+export type InertiaTaskConfigSchema = z.infer<typeof InertiaTaskConfigSchema>;
 export type InertiaConfigSchema = z.infer<typeof InertiaConfigSchema>;
 
 export class InertiaConfig {
