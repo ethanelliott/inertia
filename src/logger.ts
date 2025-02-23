@@ -8,26 +8,11 @@ export enum MessageType {
 }
 
 export class Log {
-  private static readonly _FORMATS: Record<
-    MessageType,
-    { fg: string; bg: string }
-  > = {
-    [MessageType.DEFAULT]: {
-      fg: '#ffffff',
-      bg: '',
-    },
-    [MessageType.SUCCESS]: {
-      fg: '#26a65b',
-      bg: '',
-    },
-    [MessageType.WARNING]: {
-      fg: '#f39c12',
-      bg: '',
-    },
-    [MessageType.ERROR]: {
-      fg: '#f22613',
-      bg: '',
-    },
+  private static readonly _FORMATS: Record<MessageType, any> = {
+    [MessageType.DEFAULT]: chalk.reset,
+    [MessageType.SUCCESS]: chalk.green,
+    [MessageType.WARNING]: chalk.yellow,
+    [MessageType.ERROR]: chalk.red,
   };
 
   log(message: string) {
@@ -51,7 +36,6 @@ export class Log {
   }
 
   private _format(type: MessageType) {
-    const f = Log._FORMATS[type];
-    return chalk.hex(f.fg).bgHex(f.bg);
+    return Log._FORMATS[type];
   }
 }

@@ -1,21 +1,24 @@
+import { z } from 'zod';
 import { inject } from './inject';
 import { Log } from './logger';
 
 import ora from 'ora';
 import shelljs from 'shelljs';
+import { readFileSync } from 'fs';
+import { basename } from 'path';
+import chalk from 'chalk';
 
-export type TaskActionExtras = {
+export type TaskActionParams = {
+  resolve: (value: unknown) => void;
+  reject: () => void;
+  config: Record<string, unknown>;
+
   log: Log;
   shell: typeof shelljs;
   ora: typeof ora;
 };
 
-export type TaskAction = (
-  resolve: (value: unknown) => void,
-  reject: () => void,
-  config: Record<string, unknown>,
-  other: TaskActionExtras,
-) => void;
+export type TaskAction = (params: TaskActionParams) => void;
 
 export type TaskConfig = {
   name: string;
@@ -24,38 +27,78 @@ export type TaskConfig = {
   config: Record<string, unknown>;
 };
 
+export const TaskSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  do: z.function(),
+});
+
+type TaskSchema = z.infer<typeof TaskSchema>;
+
 export class Task {
   private readonly _log = inject(Log);
 
   static from(filePath: string) {
-    console.log(filePath);
-
-    return new Task();
+    return new Task(filePath, basename(filePath, '.js'));
   }
 
-  private _name;
-  private _description;
-  private _action;
-  private _config;
+  constructor(
+    private _filePath: string,
+    public id: string,
+  ) {}
 
-  constructor(options: TaskConfig) {
-    this._name = options.name;
-    this._description = options.description;
-    this._action = options.do;
-    this._config = options.config;
+  private _task?: TaskSchema;
+
+  get name() {
+    return this._task?.name ?? '';
   }
 
-  async run() {
-    return await new Promise((resolve, reject) => {
-      this._log.log(`Running ${this._name}`);
+  load() {
+    const tr = ora(`Loading task "${chalk.hex('#0362fc')(this.name)}"`).start();
+    try {
+      this._task = TaskSchema.parse(
+        eval(readFileSync(this._filePath, 'utf-8')),
+      );
+    } catch (err) {
+      tr.fail(`Failed to load task "${chalk.hex('#0362fc')(this.name)}"`);
+      console.error(err);
 
-      if (this._action && typeof this._action === 'function') {
-        this._action(resolve, reject, this._config, {
-          log: this._log,
-          ora: ora,
-          shell: shelljs,
-        });
-      }
-    });
+      return;
+    }
+
+    tr.succeed(`Loaded task "${chalk.hex('#0362fc')(this.name)}"`);
+  }
+
+  async run(allConfigs: Record<string, unknown>) {
+    this._log.log(`Running task "${this.name}"`);
+
+    const task = this._task;
+
+    if (task === undefined) {
+      return;
+    }
+
+    const config = allConfigs[this.id];
+
+    try {
+      await new Promise((resolve, reject) => {
+        if (task.do && typeof task.do === 'function') {
+          task.do({
+            resolve,
+            reject,
+            config,
+            log: this._log,
+            ora: ora,
+            shell: shelljs,
+          });
+        }
+      });
+    } catch (err) {
+      this._log.error(`"${this.name}" execution failed`);
+      console.error(err);
+      return;
+    }
+
+    this._log.success(`"${this.name}" execution succeeded`);
   }
 }

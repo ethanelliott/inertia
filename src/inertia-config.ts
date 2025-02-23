@@ -16,6 +16,7 @@ export const InertiaConfigSchema = z.object({
 });
 
 export type InertiaTaskConfigSchema = z.infer<typeof InertiaTaskConfigSchema>;
+
 export type InertiaConfigSchema = z.infer<typeof InertiaConfigSchema>;
 
 export class InertiaConfig {

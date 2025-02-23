@@ -1,7 +1,8 @@
 module.exports = {
-  name: 'hello-world',
+  name: 'Hello world',
   description: 'Prints HELLO WORLD and that is it.',
-  do: (resolve, reject, config, shell, log) => {
+  do: ({ log, resolve }) => {
     log.log('Hello World');
+    resolve();
   },
 };

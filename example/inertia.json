@@ -2,7 +2,7 @@
   "name": "Example setup",
   "tasks": {
     "directory": "./tasks",
-    "order": ["*"],
+    "order": ["test", "hello-world"],
     "configs": {}
   }
 }
