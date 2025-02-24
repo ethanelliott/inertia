@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "type": "commonjs",
   "scripts": {
-    "transpile": "swc src -w --out-dir dist",
+    "transpile": "swc src --out-dir dist",
     "build": "rspack build",
     "package": "pkg ./dist/main.js --compress GZip --targets latest --output ./packages/inertia"
   },

@@ -5,6 +5,5 @@ const config = {
   entry: {
     main: './dist/src/index.js',
   },
-  watch: true,
 };
 export default config;
