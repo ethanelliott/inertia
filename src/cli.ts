@@ -9,7 +9,7 @@ export class CLIProgram {
   private readonly _program = program
     .name('inertia')
     .description('Easily manage your dotfiles, configs, and setup.')
-    .version('0.0.1')
+    .version('0.0.1-alpha')
     .argument('[string]', 'directory to begin loading from', '.');
 
   setup() {
