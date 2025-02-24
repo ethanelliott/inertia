@@ -15,10 +15,10 @@ export class CLIProgram {
   setup() {
     this._program.parse();
 
-    return this._configFrom(program.processedArgs, program.opts());
+    return this._configFrom(program.processedArgs /**, program.opts() */);
   }
 
-  private _configFrom(args: Array<string>, flags: any): Config {
+  private _configFrom(args: Array<string>): Config {
     const [directory] = args;
 
     return {

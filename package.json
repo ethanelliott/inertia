@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "type": "commonjs",
   "scripts": {
-    "lint": "",
+    "lint": "eslint",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "transpile": "swc src --out-dir dist",
