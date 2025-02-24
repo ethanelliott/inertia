@@ -3,10 +3,11 @@ import { inject } from './inject';
 import { Log } from './logger';
 
 import ora from 'ora';
-import shelljs from 'shelljs';
+import shell from 'shelljs';
 import { readFileSync } from 'fs';
 import { basename } from 'path';
 import chalk from 'chalk';
+import inquirer from 'inquirer';
 
 export type TaskActionParams = {
   resolve: (value: unknown) => void;
@@ -14,8 +15,9 @@ export type TaskActionParams = {
   config: Record<string, unknown>;
 
   log: Log;
-  shell: typeof shelljs;
+  shell: typeof shell;
   ora: typeof ora;
+  inquirer: typeof inquirer;
 };
 
 export type TaskAction = (params: TaskActionParams) => void;
@@ -36,22 +38,22 @@ export const TaskSchema = z.object({
 type TaskSchema = z.infer<typeof TaskSchema>;
 
 export class Task {
-  private readonly _log = inject(Log);
-
   static from(filePath: string) {
     return new Task(filePath, basename(filePath, '.js'));
+  }
+
+  private readonly _log = inject(Log);
+
+  private _task!: TaskSchema;
+
+  get name() {
+    return this._task?.name ?? '';
   }
 
   constructor(
     private _filePath: string,
     public id: string,
   ) {}
-
-  private _task?: TaskSchema;
-
-  get name() {
-    return this._task?.name ?? '';
-  }
 
   load() {
     const tr = ora(`Loading task "${chalk.hex('#0362fc')(this.name)}"`).start();
@@ -69,16 +71,15 @@ export class Task {
     tr.succeed(`Loaded task "${chalk.hex('#0362fc')(this.name)}"`);
   }
 
-  async run(allConfigs: Record<string, unknown>) {
+  async run(config: any) {
     this._log.log(`Running task "${this.name}"`);
 
     const task = this._task;
 
     if (task === undefined) {
+      this._log.error('Invalid task. Cannot execute.');
       return;
     }
-
-    const config = allConfigs[this.id];
 
     try {
       await new Promise((resolve, reject) => {
@@ -88,8 +89,9 @@ export class Task {
             reject,
             config,
             log: this._log,
-            ora: ora,
-            shell: shelljs,
+            ora,
+            shell,
+            inquirer,
           });
         }
       });

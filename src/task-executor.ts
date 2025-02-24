@@ -12,14 +12,20 @@ export class TaskExecutor {
 
   private readonly _tasks: Array<Task> = [];
 
+  private _config!: InertiaTaskConfigSchema;
+
   async load(directory: string, tasksConfig: InertiaTaskConfigSchema) {
+    this._config = tasksConfig;
+
     const taskLoadingSpinner = ora('Searching for tasks...').start();
 
     const tasksDir = join(directory, tasksConfig.directory);
 
     const tasksPaths = this._getTasksPaths(tasksDir);
 
-    taskLoadingSpinner.succeed(`Found ${tasksPaths.length} tasks`);
+    taskLoadingSpinner.succeed(
+      `Found ${tasksPaths.length} task${tasksPaths.length === 1 ? '' : 's'}`,
+    );
 
     this._tasks.push(...tasksPaths.map((p) => Task.from(p)));
 
@@ -28,7 +34,22 @@ export class TaskExecutor {
     }
   }
 
-  async executeTasks(tasksConfig: InertiaTaskConfigSchema) {
+  async executeTasks() {
+    const selectedTasks = await this._selectTasks();
+
+    if (selectedTasks.length === 0) {
+      this._log.warn('No tasks selected. Exiting.');
+      return;
+    }
+
+    const orderedTasks = this._orderTasks(selectedTasks);
+
+    for (const task of orderedTasks) {
+      await task.run(this._config.configs[task.id]);
+    }
+  }
+
+  private async _selectTasks() {
     const inquirerConfig = {
       type: 'checkbox',
       name: 'tasks',
@@ -38,16 +59,13 @@ export class TaskExecutor {
 
     const selection = await inquirer.prompt(inquirerConfig as any);
 
-    const selectedTasks = selection.tasks as Array<Task>;
+    return selection.tasks as Array<Task>;
+  }
 
-    if (selectedTasks.length === 0) {
-      this._log.warn('No tasks selected. Exiting.');
-      return;
-    }
-
-    const orderedTasks = selectedTasks.toSorted((a, b) => {
-      const aIndex = tasksConfig.order.indexOf(a.id);
-      const bIndex = tasksConfig.order.indexOf(b.id);
+  private _orderTasks(tasks: Array<Task>) {
+    return tasks.toSorted((a, b) => {
+      const aIndex = this._config.order.indexOf(a.id);
+      const bIndex = this._config.order.indexOf(b.id);
 
       let sortResult = 0;
 
@@ -67,10 +85,6 @@ export class TaskExecutor {
 
       return sortResult;
     });
-
-    for (const task of orderedTasks) {
-      await task.run(tasksConfig.configs);
-    }
   }
 
   private _getTasksPaths(taskDirectory: string): Array<string> {

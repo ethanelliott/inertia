@@ -1,5 +1,6 @@
 {
   "name": "Example setup",
+  "links": {},
   "tasks": {
     "directory": "./tasks",
     "order": ["test", "hello-world"],

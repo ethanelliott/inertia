@@ -5,6 +5,7 @@ export enum MessageType {
   SUCCESS = 'SUCCESS',
   WARNING = 'WARNING',
   ERROR = 'ERROR',
+  INFO = 'INFO',
 }
 
 export class Log {
@@ -13,6 +14,7 @@ export class Log {
     [MessageType.SUCCESS]: chalk.green,
     [MessageType.WARNING]: chalk.yellow,
     [MessageType.ERROR]: chalk.red,
+    [MessageType.INFO]: chalk.blue,
   };
 
   log(message: string) {
@@ -29,6 +31,10 @@ export class Log {
 
   warn(message: string) {
     this._log(message, MessageType.WARNING);
+  }
+
+  info(message: string) {
+    this._log(message, MessageType.INFO);
   }
 
   private _log(message: string, type: MessageType) {

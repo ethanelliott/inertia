@@ -5,17 +5,28 @@ import { inject } from './inject';
 import { Log } from './logger';
 
 export const InertiaTaskConfigSchema = z.object({
-  directory: z.string(),
+  directory: z.string().default('./tasks'),
   order: z.array(z.string()),
   configs: z.record(z.string(), z.any()),
 });
 
+export const InertialLinksConfigSchema = z.object({
+  directory: z.string().optional(),
+  target: z.string().optional(),
+  backup: z.boolean().optional(),
+});
+
 export const InertiaConfigSchema = z.object({
   name: z.string(),
+  links: InertialLinksConfigSchema.optional(),
   tasks: InertiaTaskConfigSchema.optional(),
 });
 
 export type InertiaTaskConfigSchema = z.infer<typeof InertiaTaskConfigSchema>;
+
+export type InertialLinksConfigSchema = z.infer<
+  typeof InertialLinksConfigSchema
+>;
 
 export type InertiaConfigSchema = z.infer<typeof InertiaConfigSchema>;
 
