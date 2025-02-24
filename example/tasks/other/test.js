@@ -1,12 +1,15 @@
+const wait = (time) =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve(), time);
+  });
+
 module.exports = {
   name: 'Test',
-  description: 'Prints TEST and that is it.',
-  do: ({ resolve, log, ora }) => {
+  description: 'Waits for 5 seconds and then prints TEST',
+  do: async ({ log, ora }) => {
     log.log('Doing test...');
     const l = ora('Loading...').start();
-    setTimeout(() => {
-      resolve();
-      l.succeed('Done!');
-    }, 5000);
+    await wait(5000);
+    l.succeed('Done!');
   },
 };

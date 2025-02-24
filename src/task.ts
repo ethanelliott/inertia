@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { inject } from './inject';
 import { Log } from './logger';
-
 import ora from 'ora';
 import shell from 'shelljs';
 import { readFileSync } from 'fs';
@@ -10,17 +9,14 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 
 export type TaskActionParams = {
-  resolve: (value: unknown) => void;
-  reject: () => void;
   config: Record<string, unknown>;
-
   log: Log;
   shell: typeof shell;
   ora: typeof ora;
   inquirer: typeof inquirer;
 };
 
-export type TaskAction = (params: TaskActionParams) => void;
+export type TaskAction = (params: TaskActionParams) => Promise<void>;
 
 export type TaskConfig = {
   name: string;
@@ -82,19 +78,15 @@ export class Task {
     }
 
     try {
-      await new Promise((resolve, reject) => {
-        if (task.do && typeof task.do === 'function') {
-          task.do({
-            resolve,
-            reject,
-            config,
-            log: this._log,
-            ora,
-            shell,
-            inquirer,
-          });
-        }
-      });
+      if (task.do && typeof task.do === 'function') {
+        await task.do({
+          config,
+          log: this._log,
+          ora,
+          shell,
+          inquirer,
+        });
+      }
     } catch (err) {
       this._log.error(`"${this.name}" execution failed`);
       console.error(err);

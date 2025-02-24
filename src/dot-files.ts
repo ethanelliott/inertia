@@ -71,8 +71,6 @@ export class DotFiles {
       ...config,
     } as Required<InertialLinksConfigSchema>;
 
-    console.log(mergedConfigs);
-
     for (const file of this._files) {
       file.link(mergedConfigs.target, mergedConfigs.backup);
     }
