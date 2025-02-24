@@ -1,6 +1,6 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
 export default [
   {
@@ -9,9 +9,9 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.strict,
   {
-    files: ["**/*.{js,mjs,cjs,ts}"],
+    files: ['**/*.{js,mjs,cjs,ts}'],
     rules: {
-      "@typescript-eslint/no-explicit-any": "off",
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];

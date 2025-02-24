@@ -5,6 +5,9 @@
   "main": "dist/main.js",
   "type": "commonjs",
   "scripts": {
+    "lint": "",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "transpile": "swc src --out-dir dist",
     "build": "rspack build",
     "package": "pkg ./dist/main.js --compress GZip --targets latest --output ./packages/inertia"

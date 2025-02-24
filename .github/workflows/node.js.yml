@@ -5,9 +5,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   cache-and-install:
@@ -27,6 +27,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
+      - name: Format check
+        run: pnpm format:check
       - name: Transpile
         run: pnpm transpile
       - name: Build
