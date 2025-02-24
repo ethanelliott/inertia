@@ -1,5 +1,6 @@
 {
   "name": "Example setup",
+  "plugins": [],
   "links": {},
   "tasks": {
     "directory": "./tasks",

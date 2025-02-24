@@ -37,13 +37,23 @@ export class DotFiles {
   }
 
   async execute() {
-    this._log.info(`Symlinking...`);
-
     if (this._files.length === 0) {
       this._log.error('No files to symlink...');
       return;
     }
 
+    const mergedConfigs = await this._symlinkConfig();
+
+    this._log.info(`Symlinking...`);
+
+    for (const file of this._files) {
+      file.link(mergedConfigs.target, mergedConfigs.backup);
+    }
+
+    this._log.info(`Finished symlinking!`);
+  }
+
+  private async _symlinkConfig() {
     const prompts = [];
 
     if (this._config.target === undefined) {
@@ -70,10 +80,6 @@ export class DotFiles {
       ...this._config,
       ...config,
     } as Required<InertialLinksConfigSchema>;
-
-    for (const file of this._files) {
-      file.link(mergedConfigs.target, mergedConfigs.backup);
-    }
-    this._log.info(`Finished symlinking!`);
+    return mergedConfigs;
   }
 }

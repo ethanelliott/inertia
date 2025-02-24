@@ -68,7 +68,7 @@ export class Task {
   }
 
   async run(config: any) {
-    this._log.log(`Running task "${this.name}"`);
+    this._log.info(`Running task "${this.name}"`);
 
     const task = this._task;
 
