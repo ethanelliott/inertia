@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { inject } from './inject';
-import { Log } from './logger';
+import { inject } from '../util/inject';
+import { Log } from '../util/logger';
 import ora from 'ora';
 import shell from 'shelljs';
 import { readFileSync } from 'fs';

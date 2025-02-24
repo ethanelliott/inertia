@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 import { basename, join } from 'path';
-import { inject } from './inject';
-import { Log } from './logger';
+import { inject } from '../util/inject';
+import { Log } from '../util/logger';
 import chalk from 'chalk';
 import { cp, ln, rm } from 'shelljs';
 

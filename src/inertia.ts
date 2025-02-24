@@ -1,8 +1,8 @@
 import { CLIProgram } from './cli';
-import { DotFiles } from './dot-files';
+import { DotFiles } from './files/dot-files';
 import { InertiaConfig } from './inertia-config';
-import { inject } from './inject';
-import { TaskExecutor } from './task-executor';
+import { inject } from './util/inject';
+import { TaskExecutor } from './tasks/task-executor';
 
 export class InertiaClient {
   private readonly _cli = inject(CLIProgram);

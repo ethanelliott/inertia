@@ -2,9 +2,9 @@ import { readdirSync, statSync } from 'fs';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import { join } from 'path';
-import { InertiaTaskConfigSchema } from './inertia-config';
-import { inject } from './inject';
-import { Log } from './logger';
+import { InertiaTaskConfigSchema } from '../inertia-config';
+import { inject } from '../util/inject';
+import { Log } from '../util/logger';
 import { Task } from './task';
 
 export class TaskExecutor {

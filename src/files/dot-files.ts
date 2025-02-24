@@ -3,9 +3,9 @@ import ora from 'ora';
 import { join } from 'path';
 import { find } from 'shelljs';
 import { InertiaFile } from './file';
-import { InertialLinksConfigSchema } from './inertia-config';
-import { inject } from './inject';
-import { Log } from './logger';
+import { InertialLinksConfigSchema } from '../inertia-config';
+import { inject } from '../util/inject';
+import { Log } from '../util/logger';
 
 import { homedir } from 'os';
 

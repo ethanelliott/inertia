@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { z } from 'zod';
-import { inject } from './inject';
-import { Log } from './logger';
+import { inject } from './util/inject';
+import { Log } from './util/logger';
 
 export const InertiaTaskConfigSchema = z.object({
   directory: z.string().default('./tasks'),
