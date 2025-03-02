@@ -1,9 +1,10 @@
+import chalk from 'chalk';
 import { existsSync } from 'fs';
 import { basename, join } from 'path';
+import { cp, ln, rm } from 'shelljs';
+
 import { inject } from '../util/inject';
 import { Log } from '../util/logger';
-import chalk from 'chalk';
-import { cp, ln, rm } from 'shelljs';
 
 export type InertiaFileConfig = {
   inertiaDirectory: string;

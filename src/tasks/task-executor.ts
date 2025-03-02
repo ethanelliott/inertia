@@ -2,6 +2,7 @@ import { readdirSync, statSync } from 'fs';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import { join } from 'path';
+
 import { InertiaTaskConfigSchema } from '../inertia-config';
 import { inject } from '../util/inject';
 import { Log } from '../util/logger';
@@ -19,7 +20,7 @@ export class TaskExecutor {
 
     const taskLoadingSpinner = ora('Searching for tasks...').start();
 
-    const tasksDir = join(directory, tasksConfig.directory);
+    const tasksDir = join(directory, tasksConfig.directory ?? './tasks');
 
     const tasksPaths = this._getTasksPaths(tasksDir);
 
@@ -42,10 +43,14 @@ export class TaskExecutor {
       return;
     }
 
-    const orderedTasks = this._orderTasks(selectedTasks);
+    let orderedTasks = selectedTasks;
+
+    if (this._config.order) {
+      orderedTasks = this._orderTasks(this._config.order, selectedTasks);
+    }
 
     for (const task of orderedTasks) {
-      await task.run(this._config.configs[task.id]);
+      await task.run(this._config?.configs?.[task.id] ?? {});
     }
   }
 
@@ -62,10 +67,10 @@ export class TaskExecutor {
     return selection.tasks as Array<Task>;
   }
 
-  private _orderTasks(tasks: Array<Task>) {
+  private _orderTasks(order: Array<string>, tasks: Array<Task>) {
     return tasks.toSorted((a, b) => {
-      const aIndex = this._config.order.indexOf(a.id);
-      const bIndex = this._config.order.indexOf(b.id);
+      const aIndex = order.indexOf(a.id);
+      const bIndex = order.indexOf(b.id);
 
       let sortResult = 0;
 

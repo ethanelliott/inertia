@@ -1,13 +1,13 @@
 import inquirer from 'inquirer';
 import ora from 'ora';
+import { homedir } from 'os';
 import { join } from 'path';
 import { find } from 'shelljs';
-import { InertiaFile } from './file';
+
 import { InertialLinksConfigSchema } from '../inertia-config';
 import { inject } from '../util/inject';
 import { Log } from '../util/logger';
-
-import { homedir } from 'os';
+import { InertiaFile } from './file';
 
 export class DotFiles {
   private readonly _log = inject(Log);

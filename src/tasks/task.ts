@@ -1,12 +1,13 @@
+import chalk from 'chalk';
+import { readFileSync } from 'fs';
+import inquirer from 'inquirer';
+import ora from 'ora';
+import { basename } from 'path';
+import shell from 'shelljs';
 import { z } from 'zod';
+
 import { inject } from '../util/inject';
 import { Log } from '../util/logger';
-import ora from 'ora';
-import shell from 'shelljs';
-import { readFileSync } from 'fs';
-import { basename } from 'path';
-import chalk from 'chalk';
-import inquirer from 'inquirer';
 
 export type TaskActionParams = {
   config: Record<string, unknown>;
