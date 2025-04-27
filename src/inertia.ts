@@ -18,15 +18,18 @@ export class InertiaClient {
 
     this._log.info(`Starting inertia for "${inertiaConfig?.name}"`);
 
-    this._log.info(`Linking...`);
     if (inertiaConfig?.links) {
+      this._log.info(`Linking...`);
+
       this._dotFiles.load(programConfig.directory, inertiaConfig.links);
 
       await this._dotFiles.execute();
+      this._log.info('executed');
     }
 
-    this._log.info(`Running tasks...`);
     if (inertiaConfig?.tasks) {
+      this._log.info(`Running tasks...`);
+
       this._taskExecutor.load(programConfig.directory, inertiaConfig.tasks);
 
       await this._taskExecutor.executeTasks();

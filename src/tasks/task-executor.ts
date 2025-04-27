@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'fs';
-import inquirer from 'inquirer';
-import ora from 'ora';
+import { createSpinner } from 'nanospinner';
 import { join } from 'path';
+import { plugins } from 'src/plugins';
 
 import { InertiaTaskConfigSchema } from '../inertia-config';
 import { inject } from '../util/inject';
@@ -18,13 +18,13 @@ export class TaskExecutor {
   async load(directory: string, tasksConfig: InertiaTaskConfigSchema) {
     this._config = tasksConfig;
 
-    const taskLoadingSpinner = ora('Searching for tasks...').start();
+    const taskLoadingSpinner = createSpinner('Searching for tasks...').start();
 
     const tasksDir = join(directory, tasksConfig.directory ?? './tasks');
 
     const tasksPaths = this._getTasksPaths(tasksDir);
 
-    taskLoadingSpinner.succeed(
+    taskLoadingSpinner.success(
       `Found ${tasksPaths.length} task${tasksPaths.length === 1 ? '' : 's'}`,
     );
 
@@ -36,60 +36,43 @@ export class TaskExecutor {
   }
 
   async executeTasks() {
-    const selectedTasks = await this._selectTasks();
+    const orderedTasks = this._config.steps;
 
-    if (selectedTasks.length === 0) {
-      this._log.warn('No tasks selected. Exiting.');
+    if (orderedTasks.length === 0) {
+      this._log.warn('No tasks. Exiting.');
       return;
     }
 
-    let orderedTasks = selectedTasks;
-
-    if (this._config.order) {
-      orderedTasks = this._orderTasks(this._config.order, selectedTasks);
-    }
-
     for (const task of orderedTasks) {
-      await task.run(this._config?.configs?.[task.id] ?? {});
+      if (task.skip) {
+        this._log.warn(`Skipping task "${task.id}"`);
+
+        continue;
+      }
+
+      switch (task.type) {
+        case 'LOCAL': {
+          const localTask = this._tasks.find((t) => t.id === task.id);
+          if (localTask) {
+            await localTask.run(task.config ?? {});
+          }
+          break;
+        }
+        case 'PLUGIN': {
+          const plugin = plugins.get(task.id);
+          if (plugin) {
+            await plugin.do(task.config);
+          } else {
+            this._log.error(`Cannot find plugin with id "${task.id}"`);
+          }
+          break;
+        }
+        default:
+          this._log.warn(
+            `Unknown task type "${task.type}". Please correct the config.`,
+          );
+      }
     }
-  }
-
-  private async _selectTasks() {
-    const inquirerConfig = {
-      type: 'checkbox',
-      name: 'tasks',
-      message: 'Choose the tasks to run...',
-      choices: this._tasks.map((t) => ({ name: t.name, value: t })),
-    };
-
-    const selection = await inquirer.prompt(inquirerConfig as any);
-
-    return selection.tasks as Array<Task>;
-  }
-
-  private _orderTasks(order: Array<string>, tasks: Array<Task>) {
-    return tasks.toSorted((a, b) => {
-      const aIndex = order.indexOf(a.id);
-      const bIndex = order.indexOf(b.id);
-
-      let sortResult = 0;
-
-      if (
-        (aIndex !== -1 && bIndex === -1) ||
-        (aIndex !== -1 && bIndex !== -1 && aIndex < bIndex)
-      ) {
-        sortResult = -1;
-      }
-
-      if (
-        (aIndex === -1 && bIndex !== -1) ||
-        (aIndex !== -1 && bIndex !== -1 && bIndex < aIndex)
-      ) {
-        sortResult = 1;
-      }
-
-      return sortResult;
-    });
   }
 
   private _getTasksPaths(taskDirectory: string): Array<string> {

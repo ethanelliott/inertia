@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import ora from 'ora';
+import { createSpinner } from 'nanospinner';
 import { homedir } from 'os';
 import { join } from 'path';
 import { find } from 'shelljs';
@@ -21,11 +21,11 @@ export class DotFiles {
 
     const linksDir = join(directory, links.directory ?? './links');
 
-    const tr = ora(`Searching for files under ${linksDir}`).start();
+    const tr = createSpinner(`Searching for files under ${linksDir}`).start();
 
     const filePaths = find(linksDir).filter((f) => f.match(/\.link$/));
 
-    tr.succeed(
+    tr.success(
       `Found ${filePaths.length} file${filePaths.length === 1 ? '' : 's'}`,
     );
 

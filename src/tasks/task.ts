@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { readFileSync } from 'fs';
 import inquirer from 'inquirer';
-import ora from 'ora';
+import { createSpinner } from 'nanospinner';
 import { basename } from 'path';
 import shell from 'shelljs';
 import { z } from 'zod';
@@ -13,7 +13,7 @@ export type TaskActionParams = {
   config: Record<string, unknown>;
   log: Log;
   shell: typeof shell;
-  ora: typeof ora;
+  spinner: typeof createSpinner;
   inquirer: typeof inquirer;
 };
 
@@ -53,19 +53,21 @@ export class Task {
   ) {}
 
   load() {
-    const tr = ora(`Loading task "${chalk.hex('#0362fc')(this.name)}"`).start();
+    const tr = createSpinner(
+      `Loading task "${chalk.hex('#0362fc')(this.name)}"`,
+    ).start();
     try {
       this._task = TaskSchema.parse(
         eval(readFileSync(this._filePath, 'utf-8')),
       );
     } catch (err) {
-      tr.fail(`Failed to load task "${chalk.hex('#0362fc')(this.name)}"`);
+      tr.error(`Failed to load task "${chalk.hex('#0362fc')(this.name)}"`);
       console.error(err);
 
       return;
     }
 
-    tr.succeed(`Loaded task "${chalk.hex('#0362fc')(this.name)}"`);
+    tr.success(`Loaded task "${chalk.hex('#0362fc')(this.name)}"`);
   }
 
   async run(config: any) {
@@ -83,7 +85,7 @@ export class Task {
         await task.do({
           config,
           log: this._log,
-          ora,
+          spinner: createSpinner,
           shell,
           inquirer,
         });

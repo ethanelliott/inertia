@@ -5,11 +5,11 @@ const wait = (time) =>
 
 module.exports = {
   name: 'Test',
-  description: 'Waits for 5 seconds and then prints TEST',
-  do: async ({ log, ora }) => {
+  description: 'Waits for 2 seconds and then prints TEST',
+  do: async ({ log, spinner }) => {
     log.log('Doing test...');
-    const l = ora('Loading...').start();
-    await wait(5000);
-    l.succeed('Done!');
+    const l = spinner('Loading...').start();
+    await wait(2000);
+    l.success('Done!');
   },
 };

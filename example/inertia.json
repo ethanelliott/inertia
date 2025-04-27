@@ -1,0 +1,44 @@
+{
+  "name": "Example setup",
+  "links": {},
+  "tasks": {
+    "steps": [
+      {
+        "type": "LOCAL",
+        "id": "hello-world"
+      },
+      {
+        "type": "PLUGIN",
+        "id": "homebrew",
+        "config": {
+          "packages": [
+            "git",
+            "gcc",
+            "eza",
+            "wget",
+            "tmux",
+            "spotify_player",
+            "pnpm",
+            "tree",
+            "jq",
+            "thefuck",
+            "cowsay",
+            "tailscale"
+          ]
+        }
+      },
+      {
+        "type": "PLUGIN",
+        "id": "nodejs",
+        "config": {
+          "packages": ["yarn"]
+        }
+      },
+      {
+        "type": "PLUGIN",
+        "id": "vscode",
+        "config": {}
+      }
+    ]
+  }
+}

@@ -6,14 +6,18 @@ import { z } from 'zod';
 import { inject } from './util/inject';
 import { Log } from './util/logger';
 
-export const InertiaPluginConfigSchema = z.object({
-  name: z.string(),
+export const InertiaTaskStepTypeSchema = z.enum(['LOCAL', 'PLUGIN']);
+
+export const InertiaTaskStepSchema = z.object({
+  type: InertiaTaskStepTypeSchema,
+  id: z.string(),
+  skip: z.boolean().optional().default(false),
+  config: z.record(z.string(), z.any()).optional().default({}),
 });
 
 export const InertiaTaskConfigSchema = z.object({
   directory: z.string().optional(),
-  order: z.array(z.string()).optional(),
-  configs: z.record(z.string(), z.any()).optional(),
+  steps: z.array(InertiaTaskStepSchema).optional().default([]),
 });
 
 export const InertialLinksConfigSchema = z.object({
@@ -24,12 +28,17 @@ export const InertialLinksConfigSchema = z.object({
 
 export const InertiaConfigSchema = z.object({
   name: z.string(),
-  plugins: z.array(InertiaPluginConfigSchema).optional(),
   links: InertialLinksConfigSchema.optional().default({}),
   tasks: InertiaTaskConfigSchema.optional().default({}),
 });
 
+export type InertiaTaskStepTypeSchema = z.infer<
+  typeof InertiaTaskStepTypeSchema
+>;
+
 export type InertiaTaskConfigSchema = z.infer<typeof InertiaTaskConfigSchema>;
+
+export type InertiaTaskStepSchema = z.infer<typeof InertiaTaskStepSchema>;
 
 export type InertialLinksConfigSchema = z.infer<
   typeof InertialLinksConfigSchema
