@@ -53,7 +53,7 @@ importers:
         version: 22.15.17
       '@types/shelljs':
         specifier: ^0.8.15
-        version: 0.8.15
+        version: 0.8.16
       chokidar:
         specifier: ^4.0.3
         version: 4.0.3
@@ -700,8 +700,8 @@ packages:
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
 
-  '@types/shelljs@0.8.15':
-    resolution: {integrity: sha512-vzmnCHl6hViPu9GNLQJ+DZFd6BQI2DBTUeOvYHqkWQLMfKAAQYMb/xAmZkTogZI/vqXHCWkqDRymDI5p0QTi5Q==}
+  '@types/shelljs@0.8.16':
+    resolution: {integrity: sha512-40SUXiH0tZfAg/oKkkGF1kdHPAmE4slv2xAmbfa8VtE6ztHYwdpW2phlzHTVdJh5JOGqA3Cx1Hzp7kxFalKHYA==}
 
   '@types/sockjs@0.3.36':
     resolution: {integrity: sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==}
@@ -3278,7 +3278,7 @@ snapshots:
       '@types/node': 22.15.17
       '@types/send': 0.17.4
 
-  '@types/shelljs@0.8.15':
+  '@types/shelljs@0.8.16':
     dependencies:
       '@types/glob': 7.2.0
       '@types/node': 22.15.17
