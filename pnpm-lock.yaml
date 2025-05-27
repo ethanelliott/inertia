@@ -38,7 +38,7 @@ importers:
         version: 9.27.0
       '@rspack/cli':
         specifier: ^1.2.5
-        version: 1.3.11(@rspack/core@1.3.11)(@types/express@4.17.22)
+        version: 1.3.12(@rspack/core@1.3.11)(@types/express@4.17.22)
       '@rspack/core':
         specifier: ^1.2.5
         version: 1.3.11
@@ -502,8 +502,8 @@ packages:
   '@rspack/binding@1.3.11':
     resolution: {integrity: sha512-BbMfZHqfH+CzFtZDg+v9nbKifJIJDUPD6KuoWlHq581koKvD3UMx6oVrj9w13JvO2xWNPeHclmqWAFgoD7faEQ==}
 
-  '@rspack/cli@1.3.11':
-    resolution: {integrity: sha512-+W+E5RyOAk8Am+e6Nfh75jA0rD1RlronmmkU9vGmAi6hl75hmzn9XAjdRNazBS4UO9+M1zs+Kz5hLxV8t52j9A==}
+  '@rspack/cli@1.3.12':
+    resolution: {integrity: sha512-LdajkH+YW2NaWvY0rHs+l6Ip4X1/eQ7J3qVGlV9H5TkXMp3+ldIIw/6W/2sjmf2l4GRobpVASm5U2e58bqiIpg==}
     hasBin: true
     peerDependencies:
       '@rspack/core': ^1.0.0-alpha || ^1.x
@@ -2874,7 +2874,7 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 1.3.11
       '@rspack/binding-win32-x64-msvc': 1.3.11
 
-  '@rspack/cli@1.3.11(@rspack/core@1.3.11)(@types/express@4.17.22)':
+  '@rspack/cli@1.3.12(@rspack/core@1.3.11)(@types/express@4.17.22)':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
       '@rspack/core': 1.3.11
