@@ -38,7 +38,7 @@ importers:
         version: 9.34.0
       '@rspack/cli':
         specifier: ^1.2.5
-        version: 1.5.0(@rspack/core@1.5.0)(@types/express@4.17.23)
+        version: 1.5.1(@rspack/core@1.5.0)(@types/express@4.17.23)
       '@rspack/core':
         specifier: ^1.2.5
         version: 1.5.0
@@ -557,8 +557,8 @@ packages:
   '@rspack/binding@1.5.0':
     resolution: {integrity: sha512-UGXQmwEu2gdO+tnGv2q4rOWJdWioy6dlLXeZOLYAZVh3mrfKJhZWtDEygX9hCdE5thWNRTlEvx30QQchJAszIQ==}
 
-  '@rspack/cli@1.5.0':
-    resolution: {integrity: sha512-M4/fNyoomHbxEbseB2gBbayaCtCLUEcknw5MohDEGaJ+cwVQYKOLga1AI+lpIWwzO5FCRG9tlIxjxa9vNotLeg==}
+  '@rspack/cli@1.5.1':
+    resolution: {integrity: sha512-/tOvdAAgCxoCpwZwts7c1eqDSsz8vTcJZyfSdH9VksOXZhMVFnrPxh2F4el/CDQT0dDpVFRTSDXlN5eHeFqk5w==}
     hasBin: true
     peerDependencies:
       '@rspack/core': ^1.0.0-alpha || ^1.x
@@ -1781,8 +1781,8 @@ packages:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
-  memfs@4.38.1:
-    resolution: {integrity: sha512-exfrOkkU3m0EpbQ0iQJP93HUbkprnIBU7IUnobSNAzHkBUzsklLwENGLEm8ZwJmMuLoFEfv1pYQ54wSpkay4kQ==}
+  memfs@4.38.2:
+    resolution: {integrity: sha512-FpWsVHpAkoSh/LfY1BgAl72BVd374ooMRtDi2VqzBycX4XEfvC0XKACCe0C9VRZoYq5viuoyTv6lYXZ/Q7TrLQ==}
     engines: {node: '>= 4.0.0'}
 
   merge-descriptors@1.0.3:
@@ -3074,7 +3074,7 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 1.5.0
       '@rspack/binding-win32-x64-msvc': 1.5.0
 
-  '@rspack/cli@1.5.0(@rspack/core@1.5.0)(@types/express@4.17.23)':
+  '@rspack/cli@1.5.1(@rspack/core@1.5.0)(@types/express@4.17.23)':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
       '@rspack/core': 1.5.0
@@ -4376,7 +4376,7 @@ snapshots:
 
   media-typer@0.3.0: {}
 
-  memfs@4.38.1:
+  memfs@4.38.2:
     dependencies:
       '@jsonjoy.com/json-pack': 1.11.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
@@ -5109,7 +5109,7 @@ snapshots:
   webpack-dev-middleware@7.4.2:
     dependencies:
       colorette: 2.0.20
-      memfs: 4.38.1
+      memfs: 4.38.2
       mime-types: 2.1.35
       on-finished: 2.4.1
       range-parser: 1.2.1
