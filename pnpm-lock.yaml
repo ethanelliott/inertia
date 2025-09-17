@@ -38,7 +38,7 @@ importers:
         version: 9.35.0
       '@rspack/cli':
         specifier: ^1.2.5
-        version: 1.5.4(@rspack/core@1.5.4)(@types/express@4.17.23)
+        version: 1.5.5(@rspack/core@1.5.4)(@types/express@4.17.23)
       '@rspack/core':
         specifier: ^1.2.5
         version: 1.5.4
@@ -348,8 +348,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@jsonjoy.com/json-pack@1.12.0':
-    resolution: {integrity: sha512-qPwWjCmcwtDiY9MZ4hz3YY4UYkVleWq5rXt+EEx4Jtl22byaLlfBEn8vXze43P2/30DkwzQvdA56EB3TH7t3Pg==}
+  '@jsonjoy.com/json-pack@1.14.0':
+    resolution: {integrity: sha512-LpWbYgVnKzphN5S6uss4M25jJ/9+m6q6UJoeN6zTkK4xAGhKsiBRPVeF7OYMWonn5repMQbE5vieRXcMUrKDKw==}
     engines: {node: '>=10.0'}
     peerDependencies:
       tslib: '2'
@@ -557,8 +557,8 @@ packages:
   '@rspack/binding@1.5.4':
     resolution: {integrity: sha512-HtLF5uxbf77hDarB/Wl26XgaTyWkhMogDPUOC1mLU+YPke1vYem8p8yr+McUkRtbhYoqtFMcVcT3S8jKJPP3+g==}
 
-  '@rspack/cli@1.5.4':
-    resolution: {integrity: sha512-Aa/UCisk3ks0H+FwOV4BqxoKeMTUu5lt6QWERmIz0l9LjxBTq34JJQDtHRwbE3VjCl4exh/nbNRo8GlrOO94eg==}
+  '@rspack/cli@1.5.5':
+    resolution: {integrity: sha512-b300fh1HhusbcgVbWfh3fj+vwsrkUAXufn136DdVOXZSScHy+8mtvLthrJ8w6PtTUwR3GtunmZ6hOf3e5dlfyw==}
     hasBin: true
     peerDependencies:
       '@rspack/core': ^1.0.0-alpha || ^1.x
@@ -1683,8 +1683,8 @@ packages:
     engines: {node: '>=14.16'}
     hasBin: true
 
-  is-network-error@1.1.0:
-    resolution: {integrity: sha512-tUdRRAnhT+OtCZR/LxZelH/C7QtjtFrTu5tXCA8pl55eTUElUHT+GPYV8MBMBvea/j+NxQqVt3LbWMRir7Gx9g==}
+  is-network-error@1.2.0:
+    resolution: {integrity: sha512-32jdpRpJo8SeL7zOuBJbMLz/VTw9mDpTvcKzzR8DkXWsJbbE60gdiX8YOd0UAV6b8Skt+CMytzfgVVIRFidn0Q==}
     engines: {node: '>=16'}
 
   is-number@7.0.0:
@@ -1786,8 +1786,8 @@ packages:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
 
-  memfs@4.39.0:
-    resolution: {integrity: sha512-tFRr2IkSXl2B6IAJsxjHIMTOsfLt9W+8+t2uNxCeQcz4tFqgQR8DYk8hlLH2HsucTctLuoHq3U0G08atyBE3yw==}
+  memfs@4.42.0:
+    resolution: {integrity: sha512-RG+4HMGyIVp6UWDWbFmZ38yKrSzblPnfJu0PyPt0hw52KW4PPlPp+HdV4qZBG0hLDuYVnf8wfQT4NymKXnlQjA==}
     engines: {node: '>= 4.0.0'}
 
   merge-descriptors@1.0.3:
@@ -2895,7 +2895,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@jsonjoy.com/json-pack@1.12.0(tslib@2.8.1)':
+  '@jsonjoy.com/json-pack@1.14.0(tslib@2.8.1)':
     dependencies:
       '@jsonjoy.com/base64': 1.1.2(tslib@2.8.1)
       '@jsonjoy.com/buffers': 1.0.0(tslib@2.8.1)
@@ -3079,7 +3079,7 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 1.5.4
       '@rspack/binding-win32-x64-msvc': 1.5.4
 
-  '@rspack/cli@1.5.4(@rspack/core@1.5.4)(@types/express@4.17.23)':
+  '@rspack/cli@1.5.5(@rspack/core@1.5.4)(@types/express@4.17.23)':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
       '@rspack/core': 1.5.4
@@ -4303,7 +4303,7 @@ snapshots:
     dependencies:
       is-docker: 3.0.0
 
-  is-network-error@1.1.0: {}
+  is-network-error@1.2.0: {}
 
   is-number@7.0.0: {}
 
@@ -4381,9 +4381,9 @@ snapshots:
 
   media-typer@0.3.0: {}
 
-  memfs@4.39.0:
+  memfs@4.42.0:
     dependencies:
-      '@jsonjoy.com/json-pack': 1.12.0(tslib@2.8.1)
+      '@jsonjoy.com/json-pack': 1.14.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
       glob-to-regex.js: 1.0.1(tslib@2.8.1)
       thingies: 2.5.0(tslib@2.8.1)
@@ -4542,7 +4542,7 @@ snapshots:
   p-retry@6.2.1:
     dependencies:
       '@types/retry': 0.12.2
-      is-network-error: 1.1.0
+      is-network-error: 1.2.0
       retry: 0.13.1
 
   package-json-from-dist@1.0.1: {}
@@ -5116,7 +5116,7 @@ snapshots:
   webpack-dev-middleware@7.4.3:
     dependencies:
       colorette: 2.0.20
-      memfs: 4.39.0
+      memfs: 4.42.0
       mime-types: 3.0.1
       on-finished: 2.4.1
       range-parser: 1.2.1
