@@ -18,7 +18,7 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^14.0.0",
-    "inquirer": "^12.4.2",
+    "inquirer": "^13.0.1",
     "nanospinner": "^1.2.2",
     "prettier": "^3.5.2",
     "shelljs": "^0.10.0",
