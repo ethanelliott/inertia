@@ -2585,8 +2585,8 @@ packages:
     resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
     engines: {node: '>=10'}
 
-  yauzl@3.2.0:
-    resolution: {integrity: sha512-Ow9nuGZE+qp1u4JIPvg+uCiUr7xGQWdff7JQSk5VGYTAZMDe2q8lxJ10ygv10qmSj031Ty/6FNJpLO4o1Sgc+w==}
+  yauzl@3.2.1:
+    resolution: {integrity: sha512-k1isifdbpNSFEHFJ1ZY4YDewv0IH9FR61lDetaRMD3j2ae3bIXGV+7c+LHCqtQGofSd8PIyV4X6+dHMAnSr60A==}
     engines: {node: '>=12'}
 
   yocto-queue@0.1.0:
@@ -3489,7 +3489,7 @@ snapshots:
     dependencies:
       file-type: 20.5.0
       get-stream: 6.0.1
-      yauzl: 3.2.0
+      yauzl: 3.2.1
     transitivePeerDependencies:
       - supports-color
 
@@ -5206,7 +5206,7 @@ snapshots:
       y18n: 5.0.8
       yargs-parser: 20.2.9
 
-  yauzl@3.2.0:
+  yauzl@3.2.1:
     dependencies:
       buffer-crc32: 0.2.13
       pend: 1.2.0
